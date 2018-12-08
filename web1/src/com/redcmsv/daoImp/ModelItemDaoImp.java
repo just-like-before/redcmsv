@@ -62,12 +62,12 @@ public class ModelItemDaoImp implements ModelItemDao{
 		return modelItemList;
 	}
 
-	public boolean updateFieldOfModelByMI(long modelId, byte is_channel) throws SQLException {
+	public boolean updateFieldOfModelByMI(ModelItem modelItem) throws SQLException {
 		String updateFieldOfModelSql = "update model_item set model_id=?,field=?,field_dis=?,"
 				+ "priority=?,def_value=?,opt_value=?,txt_size=?,help_info=?,data_type=?,"
 				+ "is_single=?,is_channel=?,is_custom=?,is_display=?,is_required=? "
 				+ "where id=?";
-		int i = Db.update(updateFieldOfModelSql, modelId,is_channel);
+		int i = Db.updateObject(updateFieldOfModelSql, modelItem, modelItem.getId());
 		return i>0?true:false;
 	}
 

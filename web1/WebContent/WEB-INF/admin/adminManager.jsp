@@ -77,13 +77,16 @@
 							<input type="hidden" name="id" value="${admin.id }">
 							<tr>
 								<td>${admin.id }</td>
-								<td>${admin.uname }</td>
 								<td>
-									<input type="text" class="form-control" placeholder="请输入新密码"/>	
+									<input name="uname" type="email" class="form-control" value="${admin.uname }"/>	
 								</td>
 								
 								<td>
-									<select name="" class="form-control" name="upur">
+									<input name="upwd" type="text" class="form-control" placeholder="请输入新密码"/>
+								</td>
+								
+								<td>
+									<select name="upur" class="form-control">
 										<option value="100000" ${admin.upur.startsWith("100")?"selected='selected'":"" }>管理员</option>
 										<option value="010000" ${admin.upur.startsWith("010")?"selected='selected'":"" }>普通管理员</option>
 										<option value="001000" ${admin.upur.startsWith("001")?"selected='selected'":"" }>一般</option>

@@ -29,11 +29,13 @@ $(document).ready(function () {
         $("body").toggleClass("mini-navbar");
         SmoothlyMenu();
     });
-
+ 
+  
 
     // 侧边栏高度
     function fix_height() {
         var heightWithoutNavbar = $("body > #wrapper").height() - 61;
+
         $(".sidebard-panel").css("min-height", heightWithoutNavbar + "px");
     }
     fix_height();

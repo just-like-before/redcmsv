@@ -38,7 +38,7 @@ public class AdminDaoImp implements AdminDao{
 	@Override
 	public boolean update(Admin v) throws SQLException {
 		String updateAdminSql = "update admin set uname=?,upwd=?,upur=?,active=? where id=?";
-		int i = Db.update(updateAdminSql, v,v.getId());
+		int i = Db.updateObject(updateAdminSql, v, v.getId());
 		return i > 0?true:false;
 	}
 

@@ -26,10 +26,10 @@
 					<h4>模型${is_channel==0?"内容":"栏目" }字段管理-${model.name }</h4>
 					
 					<div class="ibox-content" style="font-size: 12px;">
-						<form class="form-inline" method="post">
+						<form class="form-inline" method="post" action="model">
 							<input type="hidden" name="action" value="addModelField">
 							<input type="hidden" name="is_channel" value="${is_channel }">
-							<input type="hidden" name="modelId" value="${model.id }">
+							<input type="hidden" name="model_id" value="${model.id }">
 							<div class="form-group">
 								<input class="form-control" type="text" name="field" placeholder="字段名"/>
 							</div>
@@ -92,13 +92,17 @@
 							</tr>
 							
 							<c:forEach items="${modelItemList }" var="modelItem">
-							<form action="#" method="post">
+							<form action="model" method="post">
 								<input type="hidden" name="action" value="updateFiedlOfModel">
+								<input type="hidden" name="id" value="${modelItem.id }">
 								<input type="hidden" name="is_channel" value="${is_channel }">
-								<input type="hidden" name="modelId" value="${model.id }">
+								<input type="hidden" name="model_id" value="${model.id }">
+								<input type="hidden" name="field" value="${modelItem.field }">
 								<tr>
 									<td>
-										<input type="checkbox" value="${modelItem.is_display }" name="is_display"/>
+										<c:if test="${modelItem.is_display==1 }">
+											<input type="checkbox" value="1" name="is_display"/>
+										</c:if>
 									</td>
 									
 									<td>${modelItem.field }</td>

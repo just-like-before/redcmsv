@@ -3,10 +3,10 @@ package com.redcmsv.beans;
 public class Admin {
 	
 	/*`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	  `uname` varchar(45) NOT NULL COMMENT '�û���',
-	  `upwd` varchar(45) NOT NULL COMMENT '����',
-	  `upur` varchar(45) DEFAULT '100000000' COMMENT 'Ȩ��',
-	  `active` tinyint(1) unsigned DEFAULT '1' COMMENT '�',*/
+	  `uname` varchar(45) NOT NULL COMMENT '用户名',
+	  `upwd` varchar(45) NOT NULL COMMENT '密码',
+	  `upur` varchar(45) DEFAULT '100000000' COMMENT '用户权限等级',
+	  `active` tinyint(1) unsigned DEFAULT '1' COMMENT '活动',*/
 
 	private int id;
 
