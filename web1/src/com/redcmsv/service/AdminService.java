@@ -46,7 +46,6 @@ public class AdminService {
 
 	public static boolean updateAdmin(Admin admin) {
 		boolean bool = false;
-		System.out.println(admin.getId());
 		try {
 			String upwd = adi.select(admin.getId()).getUpwd();
 			String p = admin.getUpwd();

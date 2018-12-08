@@ -3359,15 +3359,15 @@ a.forum-item-title:hover {
 }
 
 body {
-    font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family:微软雅黑;
     font-size: 13px;
     color: #676a6c;
     overflow-x: hidden;
 }
 
-html,
-body {
+html,body {
     height: 100%;
+
 }
 
 body.full-height-layout #wrapper,
@@ -3739,12 +3739,13 @@ nav.page-tabs .page-tabs-content {
 }
 
 #content-main {
-    height: calc(100% - 50px);
+ height: calc(100% - 10px);
+
     overflow: hidden;
 }
 
 .fixed-nav #content-main {
-    height: calc(100% - 50px);
+    height: calc(100% - 10px);
     overflow: hidden;
 }
 
@@ -7582,10 +7583,10 @@ body.skin-3 {
         display: none;
     }
     #content-main {
-        height: calc(100% - 50px);
+        height: calc(100% - 10px);
     }
     .fixed-nav #content-main {
-        height: calc(100% - 50px);
+        height: calc(100% - 10px);
     }
 }
 

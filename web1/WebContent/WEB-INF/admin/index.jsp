@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="renderer" content="webkit">
+    
 
     <title>首页</title>
 
@@ -83,7 +83,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="graph_echarts.html">增加栏目</a>
+                                <a class="J_menuItem" href="admin/channel">栏目管理</a>
                             </li>
                             
                             <li>
@@ -101,7 +101,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="graph_echarts.html">模型管理</a>
+                                <a class="J_menuItem" href="admin/model">模型管理</a>
                             </li>
                             
                             <li>

@@ -50,8 +50,8 @@
 							<td>
 								<a href="model?action=updateModelTofoward&modelId=${model.id }" class="btn btn-info">修改</a>
 								<a href="model?action=deleteModel&modelId=${model.id }" class="btn btn-danger">删除</a>
-								<a href="model?action=fieldManagerTofoward&modelId=${model.id }&is_channel=0" class="btn btn-primary">内容字段管理</a>
-								<a href="model?action=fieldManagerTofoward&modelId=${model.id }&is_channel=1" class="btn btn-warning">栏目字段管理</a>
+								<a href="model?action=fieldManagerTofoward&model_id=${model.id }&is_channel=0" class="btn btn-primary">内容字段管理</a>
+								<a href="model?action=fieldManagerTofoward&model_id=${model.id }&is_channel=1" class="btn btn-warning">栏目字段管理</a>
 							</td>
 						</tr>
 						</c:forEach>
