@@ -26,7 +26,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.alibaba.fastjson.JSONObject;
 import com.redcmsv.daoImp.Db;
 
-@WebServlet("/admin/uploadWord")
+@WebServlet("/admin/upload")
 public class UploadwordServlet extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
@@ -37,8 +37,8 @@ public class UploadwordServlet extends HttpServlet{
 		
 		PrintWriter pw = resp.getWriter();
 		
-		String pathSave = req.getServletContext().getRealPath("/")+"ups/";
-		
+		String pathSave = req.getServletContext().getRealPath("ups");
+		pathSave += "/";
 		String saveUrl = req.getServletContext()+"/ups/";
 		
 		//定义允许上传的文件扩展名
@@ -79,6 +79,7 @@ public class UploadwordServlet extends HttpServlet{
 		
 		pathSave += dirName + "/";
 		saveUrl +=dirName + "/";
+		
 		File saveDirFile = new File(pathSave);
 		if(!saveDirFile.exists()) {
 			saveDirFile.mkdirs();
@@ -87,7 +88,7 @@ public class UploadwordServlet extends HttpServlet{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String ymd = sdf.format(new Date());
 		pathSave += ymd + "/";
-		saveUrl += ymd + "/";
+		//saveUrl += ymd + "/";
 		File dirFile = new File(pathSave);
 		if(!dirFile.exists()) {
 			dirFile.mkdirs();
@@ -119,9 +120,15 @@ public class UploadwordServlet extends HttpServlet{
 					String newFileName = sd.format(new Date())+"_"+new Random().nextInt(1000)+"."+fileExt;
 					
 					File uploadFile = new File(pathSave,newFileName);
+					
 					item.write(uploadFile);
 					Db.update("insert into attachs(path,mimetype,orgname) values(?,?,?)",
-							saveUrl+"/"+newFileName,item.getContentType(),item.getName());
+							saveUrl+newFileName,item.getContentType(),item.getName());
+				
+					JSONObject obj = new JSONObject();
+					obj.put("error", 0);
+					obj.put("url", saveUrl + newFileName);
+					pw.println(obj.toJSONString());
 				}
 			}
 		} catch (FileUploadException e) {

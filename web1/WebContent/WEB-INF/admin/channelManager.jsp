@@ -4,6 +4,7 @@
 <%@ taglib uri="http://www.channelManager.com/tags" prefix="cl" %>
 <!DOCTYPE html>
 <html>
+<base href="<%=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/"%>"/>
 <head>
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,11 +18,11 @@
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
-    <link rel="shortcut icon" href="../favicon.ico"> 
-    <link href="../css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="../css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
-    <link href="../css/animate.css" rel="stylesheet">
-    <link href="../css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico"> 
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
 </head>
 <body class="gray-bg">
 	<div class="wrapper wrapper-content animated fadeInRight">
@@ -32,7 +33,7 @@
 					<div class="ibox-title">
 						<h5>栏目管理
                             <button type="button" data-placement="right" data-html="true" 
- 	   						data-content="<c:forEach items='${modelList }' var='model'><a href='channel?action=addChannelToFoward&model_id=${model.id }&name=${model.name }' class='btn btn-xs btn-success'>${model.name }</a></br></c:forEach>" 
+ 	   						data-content="<c:forEach items='${modelList }' var='model'><a href='admin/channel?action=addChannelToFoward&model_id=${model.id }&name=${model.name }' class='btn btn-xs btn-success'>${model.name }</a></br></c:forEach>" 
  	   						id="ashow" class="btn btn-success">＋增加栏目</button>
                         </h5>
 
@@ -61,8 +62,8 @@
 		</div>
 	</div>
 	<!-- 全局js -->
-	<script src="../js/jquery.min.js?v=2.1.4"></script>
-	<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+	<script src="js/jquery.min.js?v=2.1.4"></script>
+	<script src="js/bootstrap.min.js?v=3.3.6"></script>
 
 	<script type="text/javascript">
 		$(function() {

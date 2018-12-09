@@ -80,5 +80,11 @@ public class ModelItemDaoImp implements ModelItemDao{
 		return i>0?true:false;
 	}
 
+	public List<ModelItem> selectFieldOfKZ(long modelId) throws SQLException {
+		String selectFieldOfKZSql = "select * from model_item where model_id=? and is_channel=1 and is_custom=1";
+		List<ModelItem> modelItemList = Db.query(selectFieldOfKZSql, new BeanListHandler<ModelItem>(ModelItem.class),modelId);
+		return modelItemList;
+	}
+
 	
 }
