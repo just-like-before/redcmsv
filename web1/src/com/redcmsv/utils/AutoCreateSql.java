@@ -15,7 +15,7 @@ public class AutoCreateSql {
 	@SuppressWarnings("unused")
 	public static void main(String[] args)throws Exception
 	{
-		String tablename="channel";
+		String tablename="channel_attr";
 		//ssString dataBasename="redcmsv6";
 		
 		Class.forName("com.mysql.jdbc.Driver");

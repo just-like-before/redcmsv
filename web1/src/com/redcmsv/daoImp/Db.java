@@ -3,7 +3,9 @@ package com.redcmsv.daoImp;
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -220,6 +222,10 @@ public class Db {
 				}else if(f.getType() == byte.class || f.getType() == Byte.class || f.getType() == Byte.TYPE){
 					byte b = (Byte) f.get(obj);
 					list.add(b);
+				}else if(f.getType() == Date.class || f.getType() == Date.class){
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+					Date d = (Date)f.get(obj);
+					list.add(sdf.format(d));
 				}else {
 					String string = (String)f.get(obj);
 					list.add(string);
