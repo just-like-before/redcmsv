@@ -28,8 +28,8 @@ public class AllChannelTag extends SimpleTagSupport {
 				if(model != null) {
 					sb.append("<td>"+model.getName()+"</td>");
 					sb.append("<td>"+c.getPriority()+"</td>");
-					sb.append("<td><a href='admin/channel?action=\"updateChannelToFoward\"&channel_id\""+c.getId()+"\"' class='btn btn-danger'>修改</a></td>");
-					sb.append("<td><a href='admin/channnel?action=\"deleteChannel\"&channel_id=\""+c.getId()+"\"' class='btn btn-warning'>删除</a></td>");
+					sb.append("<td><a href='admin/channel?action=updateChannelToFoward&channel_id="+c.getId()+"' class='btn btn-danger'>修改</a></td>");
+					sb.append("<td><a href='admin/channel?action=deleteChannel&channel_id="+c.getId()+"' class='btn btn-warning'>删除</a></td>");
 					sb.append("<td><a href='#' class='btn btn-success'>发布</a></td>");
 					sb.append("</tr>");
 					List<Channel> childChannelList = ChannelService.selectChannelByParentId(c.getId());
@@ -40,8 +40,8 @@ public class AllChannelTag extends SimpleTagSupport {
 							sb.append("<td>|---"+cl.getName()+"</td>");
 							sb.append("<td>"+model.getName()+"</td>");
 							sb.append("<td>"+cl.getPriority()+"</td>");
-							sb.append("<td><a href='admin/channel?action=\"updateChannelToFoward\"&channel_id\""+cl.getId()+"\"' class='btn btn-danger'>修改</a></td>");
-							sb.append("<td><a href='admin/channnel?action=\"deleteChannel\"&channel_id=\""+cl.getId()+"\"' class='btn btn-warning'>删除</a></td>");
+							sb.append("<td><a href='admin/channel?action=updateChannelToFoward&channel_id="+cl.getId()+"' class='btn btn-danger'>修改</a></td>");
+							sb.append("<td><a href='admin/channel?action=deleteChannel&channel_id="+cl.getId()+"' class='btn btn-warning'>删除</a></td>");
 							sb.append("<td><a href='#' class='btn btn-success'>发布</a></td>");
 							sb.append("</tr>");
 						}
@@ -49,8 +49,8 @@ public class AllChannelTag extends SimpleTagSupport {
 				}else {
 					sb.append("<td></td>");
 					sb.append("<td>"+c.getPriority()+"</td>");
-					sb.append("<td><a href='admin/channel?action=\"updateChannelToFoward\"&channel_id=\""+c.getId()+"\"' class='btn btn-danger'>修改</a></td>");
-					sb.append("<td><a href='admin/channel?action=\"deleteChannel\"&channel_id=\""+c.getId()+"\"' class='btn btn-warning'>删除</a></td>");
+					sb.append("<td><a href='admin/channel?action=updateChannelToFoward&channel_id="+c.getId()+"' class='btn btn-danger'>修改</a></td>");
+					sb.append("<td><a href='admin/channel?action=deleteChannel&channel_id="+c.getId()+"\"' class='btn btn-warning'>删除</a></td>");
 					sb.append("<td><a href='#' class='btn btn-success'>发布</a></td>");
 					sb.append("</tr>");
 				}
@@ -58,6 +58,4 @@ public class AllChannelTag extends SimpleTagSupport {
 		}
 		this.getJspContext().getOut().println(sb.toString());
 	}
-
-	
 }

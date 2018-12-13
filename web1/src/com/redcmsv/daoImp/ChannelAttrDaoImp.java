@@ -3,6 +3,8 @@ package com.redcmsv.daoImp;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.commons.dbutils.handlers.BeanListHandler;
+
 import com.redcmsv.beans.ChannelAttr;
 import com.redcmsv.dao.ChannelAttrDao;
 
@@ -44,6 +46,12 @@ public class ChannelAttrDaoImp implements ChannelAttrDao{
 		String deleteByChannelIdSql = "delete from channel_attr where channel_id=?";
 		int i = Db.update(deleteByChannelIdSql,channel_id);
 		return i>0?true:false;
+	}
+
+	public List<ChannelAttr> selectChannelAttrByCI(long channel_id) throws SQLException {
+		String selectChannelAttrSql = "select * from channel_attr where channel_id=?";
+		List<ChannelAttr> channelAttrList = Db.query(selectChannelAttrSql, new BeanListHandler<ChannelAttr>(ChannelAttr.class),channel_id);
+		return channelAttrList;
 	}
 
 	

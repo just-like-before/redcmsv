@@ -66,11 +66,11 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="graph_echarts.html">增加文章</a>
+                                <a class="J_menuItem" href="admin/data">增加文章</a>
                             </li>
                             
                             <li>
-                                <a class="J_menuItem" href="graph_flot.html">显示所有</a>
+                                <a class="J_menuItem" href="">显示所有</a>
                             </li>
                         </ul>
                     </li><!-- 文章管理结束 -->
@@ -111,7 +111,7 @@
                         </ul>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="graph_echarts.html">数据监控</a>
+                                <a class="J_menuItem" href="admin/druid/index">数据监控</a>
                             </li>
                             
                             <li>

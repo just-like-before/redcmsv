@@ -1,6 +1,7 @@
 package com.redcmsv.beans;
 
 import java.util.Date;
+import java.util.HashMap;
 
 public class Channel {
 	
@@ -52,6 +53,8 @@ public class Channel {
 	private int num02;//扩展02
 	private String date1;//扩展01
 	private String date2;//扩展02
+	
+	private HashMap<String, String> channelAttrMap = new HashMap<String,String>();
 	
 	public Channel() {
 		
@@ -269,6 +272,14 @@ public class Channel {
 
 	public void setDate2(String date2) {
 		this.date2 = date2;
+	}
+	
+	public HashMap<String, String> getChannelAttrMap() {
+		return channelAttrMap;
+	}
+	
+	public void setChannelAttrMap(HashMap<String, String> channelAttrMap) {
+		this.channelAttrMap = channelAttrMap;
 	}
 
 	@Override

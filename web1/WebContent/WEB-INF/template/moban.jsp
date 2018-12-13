@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-OK
-<a href="tiaozhuan.jsp">进入后台系统</a>
-<a href="testTag.jsp">标签展示</a>
+
 </body>
 </html>

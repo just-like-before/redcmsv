@@ -36,7 +36,6 @@ public class UploadpicServlet extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		System.out.println("dddd");
 		resp.setContentType("text/html;charset=utf-8");
 		PrintWriter out=resp.getWriter();
 		int lastid=0;
@@ -56,7 +55,6 @@ public class UploadpicServlet extends HttpServlet{
 
 			//最大文件大小
 			long maxSize = 1000000;
-
 
 			if(!ServletFileUpload.isMultipartContent(req)){
 				out.println(getError("请选择文件。"));
@@ -125,7 +123,7 @@ public class UploadpicServlet extends HttpServlet{
 					try{
 						File uploadedFile = new File(savePath, newFileName);
 						item.write(uploadedFile);
-						Db.update("insert into pictures(path,priority) values(?,?)",saveUrl+"/"+newFileName,10);
+						Db.update("insert into pictures(path,priority) values(?,?)",saveUrl+newFileName,10);
 						Object lastobj=Db.query("select LAST_INSERT_ID() from dual", new ArrayHandler())[0];
 					
 						if(lastobj instanceof Long)
