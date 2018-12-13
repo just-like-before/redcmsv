@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.redcmsv.beans.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -25,22 +26,26 @@
 	<script type="text/javascript" src="js/plugins/webuploader/webuploader.min.js" ></script>
 </head>
 <body class="gray-bg" style="font-family:微软雅黑;">
+	<%
+		Channel ch = (Channel)request.getAttribute("channel");
+		Class chClass = ch.getClass();	
+	%>
 	<div class="wrapper wrapper-content">
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>增加栏目</h5>
+						<h5>修改栏目</h5>
 					</div>
 
 					<div class="ibox-content">
 						<form class="form-horizontal" action="admin/channel" method="post">
 							<input type="hidden" name="action" value="addChannel">
-							<input type="hidden" name="model_id" value="${model_id }">
+							<input type="hidden" name="model_id" value="${model.id }">
 							<div class="form-group col-sm-4">
 							    <label  class="col-sm-5 col-md-4 control-label">模型名</label>
 							    <div class="col-sm-7 col-md-8">
-							      	<a class="btn form-control disabled">${modelName }</a>
+							      	<a class="btn form-control disabled">${model.name }</a>
 							    </div>
 					      	</div>
 					      	
@@ -48,15 +53,37 @@
 							    <label  class="col-sm-5 col-md-4 control-label">父栏目</label>
 							    <div class="col-sm-7 col-md-8">
 							      	<select name="parent_id" class="form-control">
-							      		<option value="0" selected="selected">顶层栏目</option>
-							      		<c:forEach items="${channelList }" var="channel">
-							      			<option value="${channel.id }">${channel.name }</option>
+							      		<c:forEach items="${channelList }" var="cl">
+							      			<option value="0">顶层栏目</option>
+							      			<c:if test="${channel.parent_id==cl.id }">
+							      				<option value="${cl.id }" selected="selected">${channel.name }</option>
+							      			</c:if>
+							      			<c:if test="${channel.parent_id!=cl.id }">
+							      				<option value="${cl.id }">${cl.name }</option>
+							      			</c:if>
 							      		</c:forEach>
 							      	</select>
 							    </div>
 					      	</div>
 					      		
 					      	<c:forEach items="${modelItemList }" var="modelItem">
+					      	<c:set value="${modelItem.field }" var="mf" scope="request"></c:set>
+					      	<%
+					      		String field = (String) request.getAttribute("mf");
+					      		Object result = "";
+					      		try{
+					      			java.lang.reflect.Field f = chClass.getDeclaredField(field);
+						      		if(f != null){
+						      			f.setAccessible(true);
+						      			result = f.get(ch);
+						      			request.setAttribute("result", result);
+						      		}
+					      		}catch(Exception e){
+					      			
+					      		}
+					      		
+					      		
+					      	%>
 					      	<c:if test="${modelItem.is_single==0 }"><!-- 1不是单独的一行 -->
 					      			<div class="form-group col-sm-4">
 									    <label  class="col-sm-5 col-md-4 control-label">${modelItem.field_dis }</label>
@@ -75,23 +102,28 @@
 					      				<c:choose>
 					      					<c:when test="${modelItem.field.equals('tName') }"><!--5分表选择-->
 					      						<select name="t_name" class="form-control">
-										      		<option value="data1" selected="selected">date1</option>
-										      		<option value="data2">date2</option>
-										      		<option value="data3">date3</option>
-										      		<option value="data4">date4</option>
+										      		<option value="data1" ${result=="data1"?"selected='selected'":"" }>date1</option>
+										      		<option value="data2" ${result=="data2"?"selected='selected'":"" }>date2</option>
+										      		<option value="data3" ${result=="data3"?"selected='selected'":"" }>date3</option>
+										      		<option value="data4" ${result=="data4"?"selected='selected'":"" }>date4</option>
 										      	</select>
 					      					</c:when>
 					      					
 					      					<c:when test="${modelItem.field.equals('priority') }"><!-- 6排序选择 -->
 					      						<select name="priority" class="form-control">
 										      		<c:forEach begin="1" end="10" var="i">
-										      			<option value="${i }">${i }</option>
+										      			<c:if test="${channel.priority==i }">
+										      				<option value="${i }" selected="selected">${i }</option>
+										      			</c:if>
+										      			<c:if test="${channel.priority!=i }">
+										      				<option value="${i }">${i }</option>
+										      			</c:if>
 										      		</c:forEach>
 										      	</select>
 					      					</c:when>
 					      					
 					      					<c:otherwise>
-					      						<input type="text" name="${modelItem.field }" class="form-control" placeholder="请输入${modelItem.field_dis }">
+					      						<input type="text" name="${modelItem.field }" class="form-control" value="${result }">
 					      					</c:otherwise>
 					      				</c:choose>
 					      			</c:when>
@@ -100,18 +132,23 @@
 					      				<c:if test="${modelItem.field.equals('priority') }">
 					      					<select name="priority" class="form-control">
 									      		<c:forEach begin="1" end="10" var="i">
-									      			<option value="${i }">${i }</option>
+									      			<c:if test="${channel.priority==i }">
+										      			<option value="${i }" selected="selected">${i }</option>
+									      			</c:if>
+									      			<c:if test="${channel.priority!=i }">
+									      				<option value="${i }">${i }</option>
+									      			</c:if>
 									      		</c:forEach>
 									      	</select>
 					      				</c:if>
 					      				
 					      				<c:if test="${!modelItem.field.equals('priority') }">
-					      					<input type="number" name="${modelItem.field }" class="form-control" placeholder="请输入${modelItem.field_dis }">
+					      					<input type="number" name="${modelItem.field }" class="form-control" value="${result }">
 					      				</c:if>
 					      			</c:when>
 					      			
 					      			<c:when test="${modelItem.data_type==3 }"><!-- 8kindedtor -->
-					      				<textarea name="${modleItem.field }" id="id${modelItem.id }"  style="width: 100%;height: 30px;"></textarea>
+					      				<textarea name="${modelItem.field }" id="id${modelItem.id }"  style="width: 100%;height: 30px;">${result }</textarea>
 								      	<script type="text/javascript">
 								      		KindEditor.ready(function(K){
 								      			window.editor = K.create('#id${modelItem.id}',{
@@ -124,7 +161,9 @@
 					      			</c:when>
 					      			
 					      			<c:when test="${modelItem.data_type==4 }"><!-- 9日期 -->
-					      				<input type="date" class="form-control" name="${modelItem.field }"/>
+					      				<input  class="form-control layer-date" name="${modelItem.field}" 
+					      				value="${result }" placeholder="YYYY-MM-DD hh:mm:ss" 
+					      				onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
 					      			</c:when>
 					      			
 					      			<c:when test="${modelItem.data_type==5 }">
@@ -156,7 +195,50 @@
 					      			
 					      			<c:when test="${modelItem.data_type==6 }">
 					      				<div id="pics_${modelItem.field }">${modelItem.field_dis}</div>
-											<ul id="shows_${modelItem.field }"></ul>
+											<ul id="shows_${modelItem.field }">
+												<c:if test="${modelItem.field=='pics1'}">
+										           <c:forEach items="${picture1 }" var="pics">
+										              <li>
+										              <img src="${pics.path}" width="30" height="30"/>
+										              <input type='hidden' name='pics1_ids' value='${pics.id}'/>
+										              <select name='pics1_priority'>
+										              <%
+										                for(int i=10;i>0;i--)
+										                {
+										                	  request.setAttribute("temii", i);
+											        	  %>
+											        	  <option value="<%=i%>"  ${pics.priority==temii?"selected=\"selected\"":""}><%=i%></option>
+											        	  <%
+										                }
+										              %>
+										              </select>
+										              <input type='text' name='pics1_dis' placeholder='图片描述'  value="${pics.picdis}"/>
+										              
+										              </li>
+										            </c:forEach>
+									           </c:if>
+									                 <c:if test="${modelItem.field=='pics2'}">
+										           <c:forEach items="${picture2}" var="pics">
+										               <li>
+										              <img src="${pics.path}" width="30" height="30"/>
+										              <input type='hidden' name='pics2_ids' value='${pics.id}'/>
+										              <select name='pics2_priority'>
+										              <%
+										                for(int i=10;i>0;i--)
+										                {
+										                	  request.setAttribute("temii", i);
+											        	  %>
+											        	  <option value="<%=i%>"  ${pics.priority==temii?"selected=\"selected\"":""}><%=i%></option>
+											        	  <%
+										                }
+										              %>
+										              </select>
+										              <input type='text' name='pics2_dis' placeholder='图片描述'  value="${pics.picdis}"/>
+										              
+										              </li>
+										            </c:forEach>
+									           </c:if>
+											</ul>
 											<script type="text/javascript">
 												$(function() {
 													
@@ -202,7 +284,7 @@
 					      	
 					      	<div class="form-group">
 								<div class="col-sm-6">
-									<input type="submit" value="增加栏目" class="btn btn-success"/>
+									<input type="submit" value="修改栏目" class="btn btn-success"/>
 								</div>
 							</div>
 						</form>

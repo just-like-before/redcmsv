@@ -141,4 +141,48 @@ public class ChannelService {
 		return bool;
 	}
 
+	public static Channel selectChannelById(long channel_id) {
+		Channel channel = null;
+		try {
+			channel = cdi.select(channel_id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return channel;
+	}
+
+	public static Model selectModelByMI(long model_id) {
+		Model model = null;
+		try {
+			model = mdi.select(model_id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return model;
+	}
+
+	public static List<ChannelAttr> selectChannelAttrByCI(long channel_id) {
+		List<ChannelAttr> channelAttrList = null;
+		try {
+			channelAttrList = cadi.selectChannelAttrByCI(channel_id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return channelAttrList;
+	}
+
+	public static List<Pictures> selectPicturesByCI(long channel_id,int i) {
+		List<Pictures> picturesList = null;
+		try {
+			picturesList = pdi.selectPicturesByCI(channel_id,i);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return picturesList;
+	}
+
 }

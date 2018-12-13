@@ -23,21 +23,21 @@ public class ChannelDaoImp implements ChannelDao{
 
 	@Override
 	public boolean delete(Long k) throws SQLException {
-		String deleteByChannelIdSql = "delete from channel where channel_id=?";
+		String deleteByChannelIdSql = "delete from channel where id=?";
 		int i = Db.update(deleteByChannelIdSql,k);
 		return i>0?true:false;
 	}
 
 	@Override
 	public boolean update(Channel v) throws SQLException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public Channel select(Long k) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		String selectChannelSql = "select * from channel where id=?";
+		Channel channel = Db.query(selectChannelSql, new BeanHandler<Channel>(Channel.class),k);
+		return channel;
 	}
 
 	@Override

@@ -15,7 +15,7 @@ public class TestSetvlet extends HttpServlet{
 
 	@Override
 	protected void service(HttpServletRequest arg0, HttpServletResponse arg1) throws ServletException, IOException {
-		System.out.println("ppppppppppppppppp");
+		System.out.println(arg0.getContextPath());
 	}
 
 	

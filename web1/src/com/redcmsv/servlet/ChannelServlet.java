@@ -63,25 +63,27 @@ public class ChannelServlet extends Action{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(channel);
+		
 		channel.setCreate_time(new Date());
 		//增加channel表
 		ChannelService.insertChannel(channel);
+		
 		Channel ch = ChannelService.selectLater();
 		for(int i = 1;i < 3;i++) {
-			String[] ids = this.getStrings("pic"+i+"_ids");
-			String[] prio = this.getStrings("pic"+i+"_priority");
-			String[] diss = this.getStrings("pic"+i+"_dis");
+			String[] ids = this.getStrings("pics"+i+"_ids");
+			String[] prio = this.getStrings("pics"+i+"_priority");
+			String[] diss = this.getStrings("pics"+i+"_dis");
 			//修改图集表 pictures
-			
 			if(null!=ids&&null!=prio&&null!=diss&&ids.length==prio.length&&ids.length==diss.length) {
-				for(int z = 0;z < ids.length;i++) {
+				for(int z = 0;z < ids.length;z++) {
 					Pictures p = new Pictures();
+					
 					p.setChannel_id(ch.getId());
-					p.setId(Long.parseLong(ids[i]));
-					p.setPicdis(diss[i]);
-					p.setPriority(Integer.parseInt(prio[i]));
-					p.setSequ(z+1);
+					p.setId(Long.parseLong(ids[z]));
+					p.setPicdis(diss[z]);
+					p.setPriority(Integer.parseInt(prio[z]));
+					p.setSequ(i);
+					
 					ChannelService.updatePicture(p);
 				}
 			}
@@ -120,8 +122,7 @@ public class ChannelServlet extends Action{
 	
 	public void deleteChannel() {
 		long channel_id = this.getInt("channel_id");
-		boolean b = ChannelService.deleteChannel(channel_id);
-		System.out.println("deleteChannel---->"+b);
+		ChannelService.deleteChannel(channel_id);
 		try {
 			index();
 		} catch (ServletException e) {
@@ -136,6 +137,51 @@ public class ChannelServlet extends Action{
 	public void updateChannelToFoward() {
 		long channel_id = this.getInt("channel_id");
 		
+		//获得channel
+		Channel channel = ChannelService.selectChannelById(channel_id);
+		//通过获得model 通过channel
+		Model model = ChannelService.selectModelByMI(channel.getModel_id());
+		//获得model_item 通过model_id
+		List<ModelItem> modelItemList = ChannelService.selectModelItemByMI(model.getId());
+		//获得 channe_attr 通过channel_id
+		List<ChannelAttr> channelAttrList = ChannelService.selectChannelAttrByCI(channel_id);
+		//获得pictures 通过channel_id
+		List<Pictures> picturesList1 = ChannelService.selectPicturesByCI(channel_id,1);
+		List<Pictures> picturesList2 = ChannelService.selectPicturesByCI(channel_id,2);
+		//获得一个channelList 这是每一个parent=1 是一个栏目 顶级栏目
+		List<Channel> channelList = ChannelService.selectChannelByParentId(0);
+		
+		//将这些要使用的数据放入域中
+		this.setAttribute("channel", channel);
+		this.setAttribute("model", model);
+		this.setAttribute("modelItemList", modelItemList);
+		this.setAttribute("channelList", channelList);
+		//额外字段 和图集pictures 不一定有所以 要判空
+		if(channelAttrList != null && channelAttrList.size() > 0) {
+			this.setAttribute("channelAttrList", channelAttrList);
+		}
+		
+		if(picturesList1 != null && picturesList1.size() > 0) {
+			this.setAttribute("picture1", picturesList1);
+		}
+		
+		if(picturesList2 != null && picturesList2.size() > 0) {
+			this.setAttribute("picture2", picturesList2);
+		}
+		
+		//最后foward到修改页面
+		try {
+			this.foward("/WEB-INF/admin/updateChannel.jsp");
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
+	public void updateChannel() {
+		
+	}	
 }
